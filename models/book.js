@@ -6,7 +6,7 @@ const objectSchema = {
     isbn: "String",
     paginas: "Number",
     genero: "String",
-    id_author: { type: mongoose.Schema.ObjectId, ref: Author }
+    id_autor: { type: mongoose.Schema.ObjectId, ref: Author }
 };
 
 const bookSchema = mongoose.Schema(objectSchema);

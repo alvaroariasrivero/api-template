@@ -1,17 +1,15 @@
 const Book = require('../models/book');
 
-const getAllProducts = async(req, res) => {
-    let data;
+const getAllBooks = async (req, res) => {
     try {
-        data = await Book.find({}, '-_id').populate('id_autor', '-_id');
+        const data = await Book.find({}, '-_id').populate('id_autor', '-_id');
         res.status(200).json(data);
     } catch (error) {
-        res.status(400).json({"error":error});
+        console.error("Error en getAllBooks:", error);
+        res.status(400).json({ error: error.message });
     }
 };
 
-const getBooks = {
-    getAllProducts
+module.exports = {
+    getAllBooks
 };
-
-module.exports = getBooks;
