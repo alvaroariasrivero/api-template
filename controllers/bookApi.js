@@ -30,6 +30,9 @@ const getBooksByTitle = async(req, res) => {
     const { title } = req.query;
     try {
         const data = await Book.findOne({ titulo: { '$regex' : `^${title}$`, $options: 'i'} }, '-_id').populate('id_autor', '-_id');
+        if(!data){
+            return res.status(404).json({ error: "Libro no encontrado" });
+        }
         res.status(200).json(data);
     } catch (error) {
         console.error("Error en getBooksByTitle:", error);
