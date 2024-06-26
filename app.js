@@ -2,6 +2,7 @@ const express = require('express');
 require('./config/dbmongo');
 
 const bookApiRouter = require('./routes/booksApi');
+const authorApiRouter = require('./routes/authorsApi');
 
 const app = express();
 const port = 3000;
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 
 //API routes
 app.use('/api', bookApiRouter);
+app.use('/api', authorApiRouter);
   
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

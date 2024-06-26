@@ -11,7 +11,7 @@ const getAllBooks = async (req, res) => {
             }
             res.status(200).json(data);
         } catch (error) {
-            console.error("Error en getAllBooks:", error);
+            console.error("Error in getAllBooks:", error);
             res.status(400).json({ error: error.message });
         }
     }else{
@@ -19,7 +19,7 @@ const getAllBooks = async (req, res) => {
             const data = await Book.find({}, '-_id').sort({ titulo: 'asc' }).populate('id_autor', '-_id');
             res.status(200).json(data);
         } catch (error) {
-            console.error("Error en getAllBooks:", error);
+            console.error("Error in getAllBooks:", error);
             res.status(400).json({ error: error.message });
         }
     }
@@ -35,7 +35,7 @@ const getBooksByAuthorLastName = async (req, res) => {
         const data = await Book.find({ id_autor: author._id }, '-_id').sort({ titulo: 'asc' }).populate('id_autor', '-_id nombre apellidos');
         res.status(200).json(data);
     } catch (error) {
-        console.error("Error en getBooksByAuthorLastName:", error);
+        console.error("Error in getBooksByAuthorLastName:", error);
         res.status(400).json({ error: error.message });
     }
 };
@@ -49,7 +49,7 @@ const getBooksByTitle = async(req, res) => {
         }
         res.status(200).json(data);
     } catch (error) {
-        console.error("Error en getBooksByTitle:", error);
+        console.error("Error in getBooksByTitle:", error);
         res.status(400).json({ error: error.message });
     }
 }
