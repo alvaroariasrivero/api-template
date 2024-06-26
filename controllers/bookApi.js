@@ -26,7 +26,19 @@ const getBooksByAuthorLastName = async (req, res) => {
     }
 };
 
+const getBooksByTitle = async(req, res) => {
+    const { title } = req.query;
+    try {
+        const data = await Book.findOne({ titulo: { '$regex' : `^${title}$`, $options: 'i'} }, '-_id').populate('id_autor', '-_id');
+        res.status(200).json(data);
+    } catch (error) {
+        console.error("Error en getBooksByTitle:", error);
+        res.status(400).json({ error: error.message });
+    }
+}
+
 module.exports = {
     getAllBooks,
-    getBooksByAuthorLastName
+    getBooksByAuthorLastName,
+    getBooksByTitle
 };
