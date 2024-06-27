@@ -5,7 +5,7 @@ const getAllBooks = async (req, res) => {
     const { titleFragment } = req.query;
     if(titleFragment){
         try {
-            const data = await Book.find({ titulo: { "$regex": titleFragment, "$options": "i" } }, '-_id').sort({ titulo: 'asc' }).populate('id_autor', '-_id');
+            const data = await Book.find({ titulo: { "$regex": titleFragment, "$options": "i" } }, { _id: 0, __v: 0 }).sort({ titulo: 'asc' }).populate('id_autor', { _id: 0, __v: 0 });
             if (!data) {
                 return res.status(404).json({ error: "Ningún parámetro coincide con la búsqueda" });
             }
@@ -16,7 +16,7 @@ const getAllBooks = async (req, res) => {
         }
     }else{
         try {
-            const data = await Book.find({}, '-_id').sort({ titulo: 'asc' }).populate('id_autor', '-_id');
+            const data = await Book.find({}, { _id: 0, __v: 0 }).sort({ titulo: 'asc' }).populate('id_autor', { _id: 0, __v: 0 });
             res.status(200).json(data);
         } catch (error) {
             console.error("Error in getAllBooks:", error);
@@ -32,7 +32,7 @@ const getBooksByAuthorLastName = async (req, res) => {
         if (!author) {
             return res.status(404).json({ error: "Autor no encontrado" });
         }
-        const data = await Book.find({ id_autor: author._id }, '-_id').sort({ titulo: 'asc' }).populate('id_autor', '-_id nombre apellidos');
+        const data = await Book.find({ id_autor: author._id }, { _id: 0, __v: 0 }).sort({ titulo: 'asc' }).populate('id_autor', { _id: 0, __v: 0 });
         res.status(200).json(data);
     } catch (error) {
         console.error("Error in getBooksByAuthorLastName:", error);
