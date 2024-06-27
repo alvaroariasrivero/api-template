@@ -8,7 +8,7 @@ const getAllAuthors = async (req, res) => {
         console.error("Error in getAllAuthors:", error);
         res.status(400).json({ error: error.message });
     }
-}
+};
 
 const getAuthorByLastname = async (req, res) => {
     const { authorLastname } = req.query;
@@ -22,9 +22,9 @@ const getAuthorByLastname = async (req, res) => {
         console.error("Error in getAuthorByLastname:", error);
         res.status(400).json({ error: error.message });
     }
-}
+};
 
 module.exports = {
     getAllAuthors,
     getAuthorByLastname
-}
+};

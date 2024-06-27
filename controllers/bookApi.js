@@ -52,7 +52,7 @@ const getBooksByTitle = async(req, res) => {
         console.error("Error in getBooksByTitle:", error);
         res.status(400).json({ error: error.message });
     }
-}
+};
 
 module.exports = {
     getAllBooks,
