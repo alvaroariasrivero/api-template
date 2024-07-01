@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 
 const objectSchema = {
-    nombre: "String",
-    apellidos: "String"
+    nombre: {
+        type: "String",
+        required: true
+    },
+    apellidos: {
+        type: "String",
+        required: true
+    }
 };
 
 const authorSchema = mongoose.Schema(objectSchema);

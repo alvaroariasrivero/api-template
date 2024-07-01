@@ -2,11 +2,27 @@ const mongoose = require('mongoose');
 const Author = require ('./author');
 
 const objectSchema = {
-    titulo: "String",
-    isbn: "String",
-    paginas: "Number",
-    genero: "String",
-    id_autor: { type: mongoose.Schema.ObjectId, ref: Author }
+    titulo: {
+        type: "String",
+        required: true
+    },
+    isbn: {
+        type: "String",
+        required: true
+    },
+    paginas: {
+        type: "Number",
+        required: true
+    },
+    genero: {
+        type: "String",
+        required: true
+    },
+    id_autor: { 
+        type: mongoose.Schema.ObjectId, 
+        ref: Author, 
+        required: true
+    }
 };
 
 const bookSchema = mongoose.Schema(objectSchema);
