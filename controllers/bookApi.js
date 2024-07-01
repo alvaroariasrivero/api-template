@@ -54,8 +54,31 @@ const getBooksByTitle = async(req, res) => {
     }
 };
 
+const createBook = async(req, res) => {
+    try {
+        const author = await Author.findOne({ apellidos: req.body.apellido_autor });
+        if(!author){
+            return res.status(404).json({ error: "El autor no ha sido encontrado" });
+        }
+        const book = new Book({
+            titulo: req.body.titulo,
+            isbn: req.body.isbn,
+            paginas: req.body.paginas,
+            genero: req.body.genero,
+            id_autor: author._id
+        });
+        const result = await book.save();
+        console.log('Book created', result);
+        res.status(201).json(result);
+    } catch (error) {
+        console.log('Error in createBook:', error);
+        res.status(400).json({"error":error});
+    }
+}
+
 module.exports = {
     getAllBooks,
     getBooksByAuthorLastName,
-    getBooksByTitle
+    getBooksByTitle,
+    createBook
 };
