@@ -10,8 +10,9 @@ const objectSchema = {
         type: String,
         require: true
     },
-    logged: Boolean
-}
+    logged: Boolean,
+    isAdmin: Boolean
+};
 
 const userSchema = mongoose.Schema(objectSchema);
 
