@@ -18,6 +18,7 @@ const signUpUser = async(req, res) => {
         }
     } catch (error) {
         console.log('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -31,7 +32,7 @@ const loginUser = async(req, res) => {
         }else{
             const match = await bcrypt.compare(password, data.password);
             if(match){
-                await User.updateOne({ email: req.body.email }, { logged: true })
+                await User.updateOne({ 'email': email }, { logged: true })
                 const {email} = data;
                 const userForToken = {
                     email: email,
@@ -41,19 +42,38 @@ const loginUser = async(req, res) => {
                 .status(200)
                 .json({
                     msg:'Correct authentication',
-                    token: token});
+                    token: token
+                });
             }else {
                 res.status(400).json({ msg: 'Incorrect user or password'});
             }
         }        
     } catch (error) {
         console.log('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
+const logoutUser = async (req, res) => {
+    let data;
+    try {
+        const {email} = req.body;
+        data = await User.findOne({'email': email}, '-_id -__v');
+        if(!data){
+            res.status(400).json({ msg: 'No found user'});
+        }
+        await User.updateOne({'email': email}, {'logged': false});
+        res.status(200).json({ msg: 'Logout successful' });
+    } catch (error) {
+        console.log('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 const user = {
     signUpUser,
-    loginUser
+    loginUser,
+    logoutUser
 };
 
 module.exports = user;
