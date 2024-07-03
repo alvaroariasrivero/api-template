@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
 
 const objectSchema = {
-    email: {
-        type: String, 
-        unique : true,
-        require: true
-    },
-    password: {
-        type: String,
-        require: true
-    },
-    logged: Boolean,
-    isAdmin: Boolean
+  email: {
+    type: String, 
+    unique : true,
+    require: true
+  },
+  password: {
+    type: String,
+    require: true
+  },
+  logged: Boolean,
+  isAdmin: Boolean
 };
 
 const userSchema = mongoose.Schema(objectSchema);

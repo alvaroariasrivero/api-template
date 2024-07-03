@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    res.status(200).send('Welcome to library db')
+  res.status(200).send('Welcome to library db')
 });
 
 //API routes
@@ -21,5 +21,5 @@ app.use('/api', authorApiRouter);
 app.use('/api', userApiRouter);
   
 app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+  console.log(`Listening on port ${port}`);
 });
