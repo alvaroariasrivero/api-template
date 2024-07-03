@@ -6,7 +6,7 @@ const getAllAuthors = async (req, res) => {
         res.status(200).json(data);
     } catch (error) {
         console.error("Error in getAllAuthors:", error);
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -20,7 +20,7 @@ const getAuthorByLastname = async (req, res) => {
         res.status(200).json(data);
     } catch (error) {
         console.error("Error in getAuthorByLastname:", error);
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -32,7 +32,8 @@ const createAuthor = async (req, res) => {
         console.log('Author created', result);
         res.status(201).json(result);
     } catch (error) {
-        res.status(400).json({"error":error});
+        console.log('Error in createAuthor:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 }
 

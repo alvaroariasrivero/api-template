@@ -17,7 +17,7 @@ const signUpUser = async(req, res) => {
             res.status(400).json({msg: 'Invalid email or password'});
         }
     } catch (error) {
-        console.log('Error:', error);
+        console.log('Error in signUpUser:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 };
@@ -49,7 +49,7 @@ const loginUser = async(req, res) => {
             }
         }        
     } catch (error) {
-        console.log('Error:', error);
+        console.log('Error in loginUser:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 };
@@ -65,7 +65,7 @@ const logoutUser = async (req, res) => {
         await User.updateOne({'email': email}, {'logged': false});
         res.status(200).json({ msg: 'Logout successful' });
     } catch (error) {
-        console.log('Error:', error);
+        console.log('Error in logouUser:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 }

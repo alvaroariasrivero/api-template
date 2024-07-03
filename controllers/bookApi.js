@@ -12,7 +12,7 @@ const getAllBooks = async (req, res) => {
             res.status(200).json(data);
         } catch (error) {
             console.error("Error in getAllBooks:", error);
-            res.status(400).json({ error: error.message });
+            res.status(500).json({ error: 'Internal server error' });
         }
     }else{
         try {
@@ -20,7 +20,7 @@ const getAllBooks = async (req, res) => {
             res.status(200).json(data);
         } catch (error) {
             console.error("Error in getAllBooks:", error);
-            res.status(400).json({ error: error.message });
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
 };
@@ -36,7 +36,7 @@ const getBooksByAuthorLastName = async (req, res) => {
         res.status(200).json(data);
     } catch (error) {
         console.error("Error in getBooksByAuthorLastName:", error);
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -50,7 +50,7 @@ const getBooksByTitle = async(req, res) => {
         res.status(200).json(data);
     } catch (error) {
         console.error("Error in getBooksByTitle:", error);
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
@@ -72,7 +72,7 @@ const createBook = async(req, res) => {
         res.status(201).json(result);
     } catch (error) {
         console.log('Error in createBook:', error);
-        res.status(400).json({"error":error});
+        res.status(500).json({ error: 'Internal server error' });
     }
 }
 
