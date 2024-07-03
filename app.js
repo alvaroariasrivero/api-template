@@ -1,5 +1,6 @@
 const express = require('express');
 require('./config/dbmongo');
+require('dotenv').config();
 
 const bookApiRouter = require('./routes/booksApi');
 const authorApiRouter = require('./routes/authorsApi');

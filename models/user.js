@@ -11,7 +11,8 @@ const objectSchema = {
     require: true
   },
   logged: Boolean,
-  isAdmin: Boolean
+  isAdmin: Boolean,
+  firstTime: Boolean
 };
 
 const userSchema = mongoose.Schema(objectSchema);
