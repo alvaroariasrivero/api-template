@@ -6,5 +6,6 @@ const loggedUser = require('../middlewares/verifiedToken');
 routes.post('/signup', isAdmin, loggedUser, userApi.signUpUser);
 routes.post('/login', userApi.loginUser);
 routes.post('/logout', loggedUser, userApi.logoutUser);
+routes.post('/update-password', loggedUser, userApi.updateUser);
 
 module.exports = routes;

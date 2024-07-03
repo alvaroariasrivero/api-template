@@ -72,10 +72,32 @@ const logoutUser = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  let data;
+  try {
+    const {newPassword, email} = req.body;
+    const hashPassword = await bcrypt.hash(newPassword, saltRounds);
+    data = await User.findOne({'email': email}, '-_id -__v');
+    if(!data){
+      res.status(400).json({ msg: 'No found user'});
+    }
+    if(data.firstTime === true){
+      await User.updateOne({ email: email }, {'password': hashPassword, 'firstTime': false});
+    }else{
+      await User.updateOne({ email: email }, {'password': hashPassword});
+    }
+    res.status(200).json({ msg: 'Password changed' });
+  } catch (error) {
+    console.log('Error in updateUser:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
 const user = {
   signUpUser,
   loginUser,
-  logoutUser
+  logoutUser,
+  updateUser
 };
 
 module.exports = user;
