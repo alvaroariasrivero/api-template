@@ -35,7 +35,7 @@ const createAuthor = async (req, res) => {
     console.log('Error in createAuthor:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
 
 module.exports = {
   getAllAuthors,
