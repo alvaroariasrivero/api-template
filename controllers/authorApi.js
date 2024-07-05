@@ -26,7 +26,6 @@ const getAuthorByLastname = async (req, res) => {
 
 const createAuthor = async (req, res) => {
   try {
-    console.log(req.body);
     const author = new Author(req.body);
     const result = await author.save();
     console.log('Author created', result);

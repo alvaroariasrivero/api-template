@@ -9,6 +9,9 @@ const signUpUser = async(req, res) => {
   let data;
   try {
     const {email, password} = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ msg: 'Email and password are required' });
+    }
     const hashPassword = await bcrypt.hash(password, saltRounds);
     const existEmail = await User.findOne({'email': email});
     if(regex.validateEmail(email) && regex.validatePassword(password) && !existEmail){
@@ -26,7 +29,10 @@ const signUpUser = async(req, res) => {
 const loginUser = async(req, res) => {
   let data;
   try {
-    const {email, password} = req.body
+    const {email, password} = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ msg: 'Email is required' });
+    }
     data = await User.findOne({'email': email}, '-_id -__v');
     if(!data){
         res.status(400).json({ msg: 'Incorrect user or password'}); 
@@ -60,6 +66,9 @@ const logoutUser = async (req, res) => {
   let data;
   try {
     const {email} = req.body;
+    if (!email) {
+      return res.status(400).json({ msg: 'Email is required' });
+    }
     data = await User.findOne({'email': email}, '-_id -__v');
     if(!data){
         res.status(400).json({ msg: 'No found user'});
@@ -76,6 +85,9 @@ const updateUser = async (req, res) => {
   let data;
   try {
     const {newPassword, email} = req.body;
+    if (!email || !newPassword) {
+      return res.status(400).json({ msg: 'Email and newpassword are required' });
+    }
     const hashPassword = await bcrypt.hash(newPassword, saltRounds);
     data = await User.findOne({'email': email}, '-_id -__v');
     if(!data){
@@ -91,13 +103,33 @@ const updateUser = async (req, res) => {
     console.log('Error in updateUser:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
+
+const removeUser = async (req, res) => {
+  let data;
+  try {
+    const {email} = req.body;
+    if (!email) {
+      return res.status(400).json({ msg: 'Email is required' });
+    }
+    data = await User.findOne({'email': email}, '-_id -__v');
+    if(!data){
+      res.status(400).json({ msg: 'No found user'});
+    }
+    await User.deleteOne({'email': email});
+    res.status(200).json({ msg: 'User deleted successfully' });
+  } catch (error) {
+    console.log('Error in removeUser:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 
 const user = {
   signUpUser,
   loginUser,
   logoutUser,
-  updateUser
+  updateUser,
+  removeUser
 };
 
 module.exports = user;
