@@ -7,5 +7,6 @@ routes.post('/signup', isAdmin, loggedUser, userApi.signUpUser);
 routes.post('/login', userApi.loginUser);
 routes.post('/logout', loggedUser, userApi.logoutUser);
 routes.post('/update-password', loggedUser, userApi.updateUser);
+routes.post('/remove-user', userApi.removeUser);
 
 module.exports = routes;
